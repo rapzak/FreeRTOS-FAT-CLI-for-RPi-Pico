@@ -11,19 +11,19 @@ target_sources(FreeRTOS+FAT+CLI INTERFACE
         #FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c 
         ${FREERTOS_KERNEL_PATH}/${FREERTOS_KERNEL_RP2040_RELATIVE_PATH}/port.c
         ${FREERTOS_KERNEL_PATH}/portable/MemMang/heap_4.c 
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_crc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_dir.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_error.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_fat.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_file.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_format.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_ioman.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_locking.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_memory.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_stdio.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_string.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_sys.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/../Lab-Project-FreeRTOS-FAT/ff_time.c 
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_crc.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_dir.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_error.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_fat.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_file.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_format.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_ioman.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_locking.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_memory.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_stdio.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_string.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_sys.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../Lab-Project-FreeRTOS-FAT/ff_time.c 
         ${CMAKE_CURRENT_SOURCE_DIR}/portable/RP2040/sd_spi.c
         ${CMAKE_CURRENT_SOURCE_DIR}/portable/RP2040/demo_logging.c
         ${CMAKE_CURRENT_SOURCE_DIR}/portable/RP2040/ff_sddisk.c
@@ -54,7 +54,7 @@ target_link_libraries(FreeRTOS+FAT+CLI INTERFACE
 )
 target_include_directories(FreeRTOS+FAT+CLI INTERFACE 
         include/ 
-        ../Lab-Project-FreeRTOS-FAT/include/
+        ../../Lab-Project-FreeRTOS-FAT/include/
         portable/RP2040/
         ${FREERTOS_KERNEL_PATH}/include 
 #        FreeRTOS-Kernel/portable/GCC/ARM_CM0 #_RP2040
