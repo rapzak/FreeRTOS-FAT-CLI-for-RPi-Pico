@@ -1198,7 +1198,11 @@ bool sd_init_driver() {
             sd_card_t *pSD = sd_get_by_num(i);
             if (pSD->use_card_detect) {
                 gpio_init(pSD->card_detect_gpio);
-                gpio_pull_up(pSD->card_detect_gpio);
+
+                if (pSD->card_detected_true)
+                    gpio_pull_up(pSD->card_detect_gpio);
+                else
+                    gpio_pull_down(pSD->card_detect_gpio);            
                 gpio_set_dir(pSD->card_detect_gpio, GPIO_IN);
             }
             // Chip select is active-low, so we'll initialise it to a
