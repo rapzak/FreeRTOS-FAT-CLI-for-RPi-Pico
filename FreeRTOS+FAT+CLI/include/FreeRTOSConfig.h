@@ -42,7 +42,7 @@ specific language governing permissions and limitations under the License.
 #define configUSE_QUEUE_SETS                    1
 #define configUSE_TIME_SLICING                  1 
 #define configUSE_NEWLIB_REENTRANT              1   // Necessary if any floating point printfs are used!
-#define configENABLE_BACKWARD_COMPATIBILITY     0
+#define configENABLE_BACKWARD_COMPATIBILITY     1
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
 #define configSTACK_DEPTH_TYPE                  uint16_t
 #define configMESSAGE_BUFFER_LENGTH_TYPE        size_t
