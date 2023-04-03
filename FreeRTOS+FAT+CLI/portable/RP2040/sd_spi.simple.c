@@ -25,7 +25,7 @@ specific language governing permissions and limitations under the License.
 //
 
 //#define TRACE_PRINTF(fmt, args...)
-#define TRACE_PRINTF printf  // task_printf
+#define TRACE_PRINTF task_printf
 
 void sd_spi_go_high_frequency(sd_card_t *pSD) {
     uint actual = spi_set_baudrate(pSD->spi->hw_inst, 6 * 1000 * 1000);

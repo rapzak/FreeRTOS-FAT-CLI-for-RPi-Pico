@@ -178,8 +178,8 @@ specific language governing permissions and limitations under the License.
 static bool crc_on = true;
 #endif
 
-#define TRACE_PRINTF(fmt, args...)
-//#define TRACE_PRINTF printf  // task_printf
+//#define TRACE_PRINTF(fmt, args...)
+#define TRACE_PRINTF task_printf
 
 #define myASSERT configASSERT
 
@@ -373,7 +373,7 @@ static void sd_release(sd_card_t *pSD) {
     sd_spi_release(pSD);
 }
 
-#if 0
+
 static const char *cmd2str(const cmdSupported cmd) {
     switch (cmd) {
         default:
@@ -435,7 +435,7 @@ static const char *cmd2str(const cmdSupported cmd) {
             return "ACMD51_SEND_SCR";
     }
 }
-#endif
+
 
 #define SD_COMMAND_TIMEOUT 2000 /*!< Timeout in ms for response */
 

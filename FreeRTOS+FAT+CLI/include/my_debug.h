@@ -32,8 +32,8 @@ time_t GLOBAL_uptime_seconds();
 extern void vLoggingPrintf(const char *pcFormat, ...)
     __attribute__((format(__printf__, 1, 2)));
 
-//#define DBG_PRINTF task_printf 
-#define DBG_PRINTF printf
+#define DBG_PRINTF task_printf 
+//#define DBG_PRINTF printf
 
 void task_printf(const char *pcFormat, ...) __attribute__((format(__printf__, 1, 2)));
 

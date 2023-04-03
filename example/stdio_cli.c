@@ -39,12 +39,12 @@ specific language governing permissions and limitations under the License.
 #include "sd_card.h"
 
 //#define TRACE_PRINTF(fmt, args...)
-#define TRACE_PRINTF printf  // task_printf
+#define TRACE_PRINTF printf // task_printf
 
 // stdioTask - the function which handles input
 static void stdioTask(void *arg) {
     (void)arg;
-
+    vTaskDelay(5000);
     size_t cInputIndex = 0;
     static char cOutputString[cmdMAX_OUTPUT_SIZE] = {0};
     static char cInputString[cmdMAX_INPUT_SIZE] = {0};
@@ -73,7 +73,7 @@ static void stdioTask(void *arg) {
     stdio_flush();
 
     for (;;) {
-        int cRxedChar = getchar_timeout_us(0);
+        int cRxedChar = getchar();//getchar_timeout_us(0);
         /* Get the character from terminal */
         if (PICO_ERROR_TIMEOUT == cRxedChar) {
             vTaskDelay(pdMS_TO_TICKS(1));
