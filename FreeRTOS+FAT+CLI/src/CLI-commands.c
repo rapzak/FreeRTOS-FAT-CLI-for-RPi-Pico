@@ -485,6 +485,11 @@ static BaseType_t prvParameterEchoCommand(char *pcWriteBuffer,
     return xReturn;
 }
 
+
+
+
+
+
 /*-----------------------------------------------------------*/
 static BaseType_t prvCLSCommand(char *pcWriteBuffer, size_t xWriteBufferLen,
                                 const char *pcCommandString) {
@@ -914,6 +919,67 @@ static const CLI_Command_Definition_t xTest = {
     "\ntest <number>:\n Development test\n", test, /* The function to run. */
     1 /* One parameter is expected. */
 };
+
+
+
+
+
+/*-----------------------------------------------------------*/
+static BaseType_t prvESP_RebootCommand_boot(char *pcWriteBuffer, size_t xWriteBufferLen,
+                                const char *pcCommandString) {
+    /* Remove compile time warnings about unused parameters, and check the
+    write buffer is not NULL.  NOTE - for simplicity, this example assumes the
+    write buffer length is adequate, so does not check for buffer overflows. */
+    (void)pcCommandString;
+    (void)xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    gpio_put(28,0); // out for ESP32_boot set to 0 for download
+    gpio_put(24,0); // out for ESP32_ENABLE
+    strcpy(pcWriteBuffer, "Reboot ESP32 now into bootloader");
+    vTaskDelay(50);
+    gpio_put(24,1); // out for ESP32_ENABLE
+    gpio_put(28,1); // out for ESP32_boot set to 0 for download
+    /* There is no more data to return after this single string, so return
+    pdFALSE. */
+    return pdFALSE;
+}
+
+static const CLI_Command_Definition_t esp_reboot_boot = {"esp_reboot_boot", "esp_reboot_boot:\n Reboot the ESP32 into bootloader\n\n",
+                                              prvESP_RebootCommand_boot, 0};
+
+                                              /*-----------------------------------------------------------*/
+static BaseType_t prvESP_RebootCommand(char *pcWriteBuffer, size_t xWriteBufferLen,
+                                const char *pcCommandString) {
+    /* Remove compile time warnings about unused parameters, and check the
+    write buffer is not NULL.  NOTE - for simplicity, this example assumes the
+    write buffer length is adequate, so does not check for buffer overflows. */
+    (void)pcCommandString;
+    (void)xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    gpio_put(28,1); // out for ESP32_boot set to 0 for download
+    gpio_put(24,0); // out for ESP32_ENABLE
+    strcpy(pcWriteBuffer, "Reboot ESP32 now");
+    vTaskDelay(50);
+    gpio_put(24,1); // out for ESP32_ENABLE
+
+    /* There is no more data to return after this single string, so return
+    pdFALSE. */
+    return pdFALSE;
+}
+
+static const CLI_Command_Definition_t esp_reboot = {"esp_reboot", "esp_reboot:\n Reboot the ESP32\n\n",
+                                              prvESP_RebootCommand, 0};
+
+
+/*-----------------------------------------------------------*/
+
+
+
+
+
+
 /*-----------------------------------------------------------*/
 
 void vRegisterCLICommands(void) {
@@ -928,6 +994,8 @@ void vRegisterCLICommands(void) {
         //		FreeRTOS_CLIRegisterCommand( &xThreeParameterEcho );
         //		FreeRTOS_CLIRegisterCommand( &xParameterEcho );
         FreeRTOS_CLIRegisterCommand(&xCLS);
+        FreeRTOS_CLIRegisterCommand(&esp_reboot_boot);
+        FreeRTOS_CLIRegisterCommand(&esp_reboot);
 
 #if ipconfigSUPPORT_OUTGOING_PINGS == 1
         { FreeRTOS_CLIRegisterCommand(&xPing); }

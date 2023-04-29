@@ -26,6 +26,8 @@ specific language governing permissions and limitations under the License.
 //
 #include "crash.h"
 
+#include "pico/stdio_uart.h"
+
 static volatile crash_info_ram_t crash_info_ram
     __attribute__((section(".uninitialized_data")));
 
@@ -75,9 +77,14 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     (void)xTask;
     /* The stack space has been exceeded for a task, considering allocating
      * more. */
-    //	UART_1_PutString("\nOut of stack space!\n");
-    //	UART_1_PutString(pcTaskGetName(NULL));
-    //	UART_1_PutString("\n");
+
+   // stdio_uart_out_chars(const char *buf, int length)
+        
+        puts("\nOut of stack space!\n");
+    	puts(pcTaskGetName(NULL));
+    	
+        
+
     memset((void *)p_crash_info_ram, 0,
            sizeof *p_crash_info_ram);  // GCC recognized as built-in function
     snprintf((char *)p_crash_info_ram->crash_info.task_name,

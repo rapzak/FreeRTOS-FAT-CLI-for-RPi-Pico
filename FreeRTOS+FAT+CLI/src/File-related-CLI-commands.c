@@ -96,7 +96,7 @@ specific language governing permissions and limitations under the License.
 #include "ff_headers.h"
 #include "ff_stdio.h"
 
-#define cliNEW_LINE		"\r\n"
+#define cliNEW_LINE		"\r"
 
 /*******************************************************************************
  * See the URL in the comments within main.c for the location of the online
@@ -158,12 +158,12 @@ static BaseType_t prvPWDCommand( char *pcWriteBuffer, size_t xWriteBufferLen, co
 files in the current directory. */
 static const CLI_Command_Definition_t xDIR =
 { "dir", /* The command string to type. */
-"\r\ndir:\r\n Lists the files in the current directory\r\n", prvDIRCommand, /* The function to run. */
+"\rdir:\r Lists the files in the current directory\r", prvDIRCommand, /* The function to run. */
 	0 /* No parameters are expected. */
 };
 static const CLI_Command_Definition_t xLS =
 { "ls", /* The command string to type. */
-"ls: Alias for \"dir\"\r\n", prvDIRCommand, /* The function to run. */
+"ls: Alias for \"dir\"\r", prvDIRCommand, /* The function to run. */
 	0 /* No parameters are expected. */
 };
 
@@ -171,7 +171,7 @@ static const CLI_Command_Definition_t xLS =
 working directory. */
 static const CLI_Command_Definition_t xCD =
 { "cd", /* The command string to type. */
-"\r\ncd <dir name>:\r\n Changes the working directory\r\n", prvCDCommand, /* The function to run. */
+"\rcd <dir name>:\r Changes the working directory\r", prvCDCommand, /* The function to run. */
 	1 /* One parameter is expected. */
 };
 
@@ -179,42 +179,42 @@ static const CLI_Command_Definition_t xCD =
 contents of a file to the console. */
 static const CLI_Command_Definition_t xTYPE =
 { "type", /* The command string to type. */
-"\r\ntype <filename>:\r\n Prints file contents to the terminal\r\n", prvTYPECommand, /* The function to run. */
+"\rtype <filename>:\r Prints file contents to the terminal\r", prvTYPECommand, /* The function to run. */
 	1 /* One parameter is expected. */
 };
 
 /* Structure that defines the DEL command line command, which deletes a file. */
 static const CLI_Command_Definition_t xDEL =
 { "del", /* The command string to type. */
-"\r\ndel <filename>:\r\n deletes a file (use rmdir to delete a directory)\r\n", prvDELCommand, /* The function to run. */
+"\rdel <filename>:\r deletes a file (use rmdir to delete a directory)\r", prvDELCommand, /* The function to run. */
 	1 /* One parameter is expected. */
 };
 
 /* Structure that defines the RMDIR command line command, which deletes a directory. */
 static const CLI_Command_Definition_t xRMDIR =
 { "rmdir", /* The command string to type. */
-"\r\nrmdir <directory name>:\r\n deletes a directory\r\n", prvRMDIRCommand, /* The function to run. */
+"\rrmdir <directory name>:\r deletes a directory\r", prvRMDIRCommand, /* The function to run. */
 	1 /* One parameter is expected. */
 };
 
 /* Structure that defines the COPY command line command, which deletes a file. */
 static const CLI_Command_Definition_t xCOPY =
 { "copy", /* The command string to type. */
-"\r\ncopy <source file> <dest file>:\r\n Copies <source file> to <dest file>\r\n", prvCOPYCommand, /* The function to run. */
+"\rcopy <source file> <dest file>:\r Copies <source file> to <dest file>\r", prvCOPYCommand, /* The function to run. */
 	2 /* Two parameters are expected. */
 };
 
 /* Structure that defines the COPY command line command, which deletes a file. */
 static const CLI_Command_Definition_t xREN =
 { "ren", /* The command string to type. */
-"\r\nren <source file> <dest file>:\r\n Moves <source file> to <dest file>\r\n", prvRENCommand, /* The function to run. */
+"\rren <source file> <dest file>:\r Moves <source file> to <dest file>\r", prvRENCommand, /* The function to run. */
 	2 /* Two parameters are expected. */
 };
 
 /* Structure that defines the pwd command line command, which prints the current working directory. */
 static const CLI_Command_Definition_t xPWD =
 { "pwd", /* The command string to type. */
-"\r\npwd:\r\n Print Working Directory\r\n", prvPWDCommand, /* The function to run. */
+"\rpwd:\r Print Working Directory\r", prvPWDCommand, /* The function to run. */
 	0 /* No parameters are expected. */
 };
 
@@ -245,7 +245,7 @@ size_t xColumns = 80U;
 	/* Ensure there is always a null terminator after each character written. */
 	memset( pcWriteBuffer, 0x00, xWriteBufferLen );
 
-	/* Ensure the buffer leaves space for the \r\n. */
+	/* Ensure the buffer leaves space for the \r. */
 	configASSERT( xWriteBufferLen > ( strlen( cliNEW_LINE ) * 2 ) );
 	xWriteBufferLen -= strlen( cliNEW_LINE );
 
@@ -337,7 +337,7 @@ BaseType_t xReturn = pdFALSE;
 	/* This assumes pcWriteBuffer is long enough. */
 	( void ) pcCommandString;
 
-	/* Ensure the buffer leaves space for the \r\n. */
+	/* Ensure the buffer leaves space for the \r. */
 	configASSERT( xWriteBufferLen > ( strlen( cliNEW_LINE ) * 2 ) );
 	xWriteBufferLen -= strlen( cliNEW_LINE );
 
@@ -433,9 +433,9 @@ int iReturned;
 	iReturned = ff_remove( pcParameter );
 
 	if (iReturned == FF_ERR_NONE) {
-		snprintf(pcWriteBuffer, xWriteBufferLen, "%s was deleted\n", pcParameter);
+		snprintf(pcWriteBuffer, xWriteBufferLen, "%s was deleted", pcParameter);
 	} else {
-		snprintf(pcWriteBuffer, xWriteBufferLen, "Error.  %s was not deleted\n", pcParameter);
+		snprintf(pcWriteBuffer, xWriteBufferLen, "Error.  %s was not deleted", pcParameter);
 	}
 	return pdFALSE;
 }
@@ -546,7 +546,7 @@ BaseType_t xParameterStringLength;
     int ec = ff_rename(pcSourceFile, pcDestinationFile, false);
     if (ec) {
 			int error = stdioGET_ERRNO();
-		snprintf(pcWriteBuffer, xWriteBufferLen, "%s: ff_rename error: %s, (%d)\n", __FUNCTION__, strerror(error), error);
+		snprintf(pcWriteBuffer, xWriteBufferLen, "%s: ff_rename error: %s, (%d)", __FUNCTION__, strerror(error), error);
     } else {
 		snprintf( pcWriteBuffer, xWriteBufferLen, "Rename succeeded" );
 	}
